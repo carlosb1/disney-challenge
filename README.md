@@ -20,12 +20,11 @@ This second method is the best one for test purposes
 ## Deliverables
 
 - For checking the ML, go to the `infra` folder.
-- For checking the webpage for uploading data: `http://localhost` or `http://0.0.0.0`
 - For checking the results: `http://localhost` or `http://0.0.0.0:8000`
 
 The webservice and its REST API is implemented in the `app_labhouse` folder.
 
-for running test
+for running tests
 
 ```
 source venv/bin/activate
