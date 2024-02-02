@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Upload Image</title>
+  <script src="/static/script.js"></script>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+  <div class="container mt-4">
+    <div class="card card-info">
+      <div class="card-header"> Upload file</div>
+      <div>
+        <form action="" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ image.as_p }}
+      </div>
+      <div class="card-footer">
+        <div>
+          <select name="models" class="form-control mt-2" aria-label="Default select example">
+            <option value="stability-ai" selected>API Stability AI (Stable Diffusion)</option>
+            <option value="offline-model">Hugging faces (Stable Difussion + NOT API + Very Slow)</option>
+          </select>
+        </div>
+        <div>
+        <button type="submit" class="btn mt-2">Upload</button>
+        </div>
+      </div>
+      </form>
+    </div>
+
+    <div class="card card-info" id="list-images">
+    </div>
+  </div>
+
+
+  </div>
+</body>
+
+</html>
