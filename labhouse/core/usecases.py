@@ -31,7 +31,7 @@ class AdapterML(ABC):
 
 
 def process_images_with_ai(identifier: int, gen_imgs_repository: AdapterGeneratedImageRepository, ml_adapter: AdapterML):
-    """ML task for processing image"""
+    """ML use case for processing image"""
     logger.info(f"Running image processing with {str(identifier)}")
     image_job: ImageJob = gen_imgs_repository.get(identifier)
     result_image_job: ImageJob = ml_adapter.run(image_job)

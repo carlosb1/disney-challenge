@@ -12,6 +12,7 @@ logger = logging.getLogger(__name__)
 
 
 class GeneratedImageJobRepository(AdapterGeneratedImageRepository):
+    """ Implement repository to use django repo"""
     def __init__(self, media_folder=''):
         self._media_folder = media_folder
     def save(self, image_job: ImageJob):
@@ -30,8 +31,10 @@ class GeneratedImageJobRepository(AdapterGeneratedImageRepository):
 
 @shared_task(bind=True, ignore_result=True)
 def process_image(self, identifier):
+    """ Celery task for running API algorithm """
     process_images_with_ai(identifier, GeneratedImageJobRepository(settings.MEDIA_FOLDER), StabilityAI(settings.STABILITY_API_KEY))
 
 @shared_task(bind=True, ignore_result=True)
 def process_image_with_local_model(self, identifier):
+    """ Celery task for local model """
     process_images_with_ai(identifier, GeneratedImageJobRepository(settings.MEDIA_FOLDER), LocalStableDifussionPixar())

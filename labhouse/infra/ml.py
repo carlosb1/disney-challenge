@@ -1,3 +1,12 @@
+"""  Stable Diffusion ML  implementations.
+Both approach apply a local stable diffusion algorithm. Both needs a set of parameters:
+    
+    * strength - configure percentage between the original and disney filter
+    * prompt - keyworks to define the style
+    * negative_prompt - keywords to apply in avoid in the Neural Network
+    * cfg_scale - It defines the creativity for the image
+    * seed - initial seed for the creation
+"""
 import os
 import logging
 from dataclasses import dataclass
@@ -5,9 +14,7 @@ from core.usecases import  ImageJob, AdapterML
 import base64
 import requests
 from PIL import Image
-
 import torch
-from PIL import Image
 from torchvision.transforms import functional as TF
 from diffusers import StableDiffusionImg2ImgPipeline
 
@@ -15,6 +22,7 @@ logger = logging.getLogger(__name__)
 
 @dataclass
 class StabilityConfig:
+    """ Parameters for diffusion NN for Stability """
     strength: float = 0.45
     prompt: str = "cartoon pixar disney style"
     cfg_scale: int = 4
@@ -23,6 +31,7 @@ class StabilityConfig:
 
 @dataclass
 class LocalDiffusionConfig:
+    """ Parameters for diffusion NN for our local model """
     strength: float = 0.2
     prompt: str = "cartoon pixar disney style"
     negative_prompt: str = "bad blurry"
@@ -30,6 +39,7 @@ class LocalDiffusionConfig:
     steps: int = 700
 
 class StabilityAI(AdapterML):
+    """ Implementation to use Stability AI API"""
     def __init__(self, api_key: str, config: StabilityConfig = StabilityConfig()):
         self._api_key = api_key
         self._config = config
@@ -85,6 +95,7 @@ class StabilityAI(AdapterML):
 
 
 class LocalStableDifussionPixar(AdapterML):
+    """ Apply diffusion model for disney characters """
     def __init__(self, device='cpu'):
         model_id = "nitrosocke/mo-di-diffusion"
         self._device = device

@@ -15,7 +15,7 @@ class GeneratedImagesViewSet(viewsets.ModelViewSet):
     serializer_class = GeneratedImageSerializer
 
 def index(request):
-    """Endpoint for submitting a form"""
+    """Endpoint for submitting a image"""
     logger = logging.getLogger(__name__)
     logger.info('Uploading image')
     if request.method == 'POST':

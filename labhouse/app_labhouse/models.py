@@ -1,12 +1,12 @@
 from django.db import models
 
 class ImageModel(models.Model):
-    """Image represantion"""
+    """Image representation"""
     image = models.ImageField(upload_to='images/',
                              verbose_name='image',)
 
 class GeneratedImage(models.Model):
-    """Generated image represantion"""
+    """Generated image representation"""
     class Status(models.TextChoices):
         COMPLETED = 'C', 'COMPLETED'
         READY = 'R', 'READY'
