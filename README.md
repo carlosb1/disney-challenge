@@ -18,7 +18,7 @@ In `/labhouse` folder:
 This second method is the best one for test purposes
 
 ## Deliverables
-
+- Download the offline model with `python download_model.py`
 - For checking the ML, go to the `infra` folder.
 - For checking the results: `http://localhost` or `http://0.0.0.0:8000`
 

@@ -25,7 +25,7 @@ def index(request):
             instance = form.save()
             generated_image = GeneratedImage.objects.create(original_image=instance.image, generated_image=instance.image)
             logger.info(f'saved instance as {instance} with type {list(request.POST)}')
-            if type_model == "scalibity-ai":
+            if type_model == "stability-ai":
                 #stable diffusion
                 process_image(generated_image.id)
             else:

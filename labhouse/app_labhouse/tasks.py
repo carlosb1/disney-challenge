@@ -34,7 +34,7 @@ def process_image(self, identifier):
     """ Celery task for running API algorithm """
     process_images_with_ai(identifier, GeneratedImageJobRepository(settings.MEDIA_FOLDER), StabilityAI(settings.STABILITY_API_KEY))
 
-@shared_task(bind=True, ignore_result=True)
+@shared_task(bind=True, ignore_result=True, time_limit=3600 * 2)
 def process_image_with_local_model(self, identifier):
     """ Celery task for local model """
     process_images_with_ai(identifier, GeneratedImageJobRepository(settings.MEDIA_FOLDER), LocalStableDifussionPixar())

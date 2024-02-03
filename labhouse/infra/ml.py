@@ -97,7 +97,7 @@ class StabilityAI(AdapterML):
 class LocalStableDifussionPixar(AdapterML):
     """ Apply diffusion model for disney characters """
     def __init__(self, device='cpu'):
-        model_id = "nitrosocke/mo-di-diffusion"
+        model_id = "local-mo-di-diffusion"
         self._device = device
         if  self._device == 'cpu':
             pipe = StableDiffusionImg2ImgPipeline.from_pretrained(model_id)

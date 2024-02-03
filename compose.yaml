@@ -11,11 +11,12 @@ services:
       - | 
         python manage.py makemigrations # We run migrations when the database is ready.
         python manage.py migrate --settings=labhouse.settings
-        gunicorn labhouse.wsgi:application --bind 0.0.0.0:8000
+        gunicorn labhouse.wsgi:application --bind 0.0.0.0:8000 --timeout 9000
     volumes:
       - .:/labhouse
       - shared_volume:/app/frontend/static
       - temp_volume:/app/media/
+      - ./labhouse/local-mo-di-diffusion:/app/local-mo-di-diffusion
     ports:
       - 8000:8000
     depends_on:

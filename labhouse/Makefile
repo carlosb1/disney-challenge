@@ -12,6 +12,7 @@ PYTHON := python
 PIP := pip
 MANAGE := ./manage.py
 SETTINGS := labhouse.settings
+DIR := $(shell pwd)
 
 #TODO check settings configuration
 
@@ -36,7 +37,7 @@ test: setup_virtual
 
 start_docker:
 	docker build -t app-labhouse .
-	docker run -p 8000:8000 app-labhouse
+	docker run -v $(DIR)/local-mo-di-diffusion:/app/local-mo-di-diffusion -p 8000:8000 app-labhouse
 
 # Clean up pycache files
 clean:
