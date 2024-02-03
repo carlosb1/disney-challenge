@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   }
 
-  const pollingInterval = 30000;
+  const pollingInterval = 5000;
   setInterval(fetchData, pollingInterval);
   // Fetch initial data
   fetchData();

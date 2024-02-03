@@ -29,12 +29,12 @@ class GeneratedImageJobRepository(AdapterGeneratedImageRepository):
         return ImageJob(original_image=Path(self._media_folder+obj.original_image.name), generated_image=Path(self._media_folder+obj.generated_image.name), status=obj.status, identifier=obj.id)
 
 
-@shared_task(bind=True, ignore_result=True)
-def process_image(self, identifier):
+@shared_task(bind=False, ignore_result=True)
+def process_image(identifier):
     """ Celery task for running API algorithm """
     process_images_with_ai(identifier, GeneratedImageJobRepository(settings.MEDIA_FOLDER), StabilityAI(settings.STABILITY_API_KEY))
 
-@shared_task(bind=True, ignore_result=True, time_limit=3600 * 2)
-def process_image_with_local_model(self, identifier):
+@shared_task(ignore_result=True, time_limit=3600 * 2)
+def process_image_with_local_model(identifier):
     """ Celery task for local model """
     process_images_with_ai(identifier, GeneratedImageJobRepository(settings.MEDIA_FOLDER), LocalStableDifussionPixar())

@@ -55,3 +55,5 @@ case, it was not done, it seemed out of the problem scope... All these things wo
 - Both models are using Stable Diffusion XL
 - The API is from `stability.AI` that it consumes credits (I charged 10 euros)... Please take care about this. I harcoded the value in the `settings` file
 for easier the testing. Also it can be passed as another with the compose file.
+- To apply the local model `mo-di-diffusion` the computer must be enough powerful for no creating resource conflicts among gunicorn nginx and celery. It exists
+ different alternatives for this, running all the parts without gunicorn and nginx or execute some related tests for this model.
