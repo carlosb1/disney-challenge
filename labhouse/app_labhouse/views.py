@@ -26,9 +26,9 @@ def index(request):
             generated_image = GeneratedImage.objects.create(original_image=instance.image, generated_image=instance.image)
             logger.info(f'saved instance as {instance} with type {list(request.POST)}')
             if type_model == "stability-ai":
-                process_image(generated_image.id).delay()
+                process_image.delay(generated_image.id)
             else:
-                process_image_with_local_model(generated_image.id).delay()
+                process_image_with_local_model.delay(generated_image.id)
 
     else:
         form = ImageForm()
