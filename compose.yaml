@@ -51,6 +51,7 @@ services:
     volumes:
       - .:/labhouse
       - temp_volume:/app/media/
+      - ./labhouse/local-mo-di-diffusion:/app/local-mo-di-diffusion
     depends_on:
       - web
       - redis
