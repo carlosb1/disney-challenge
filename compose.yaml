@@ -17,6 +17,7 @@ services:
       - shared_volume:/app/frontend/static
       - temp_volume:/app/media/
       - ./labhouse/local-mo-di-diffusion:/app/local-mo-di-diffusion
+      - ./labhouse/local-instruct-pix2pix:/app/local-instruct-pix2pix
     ports:
       - 8000:8000
     depends_on:
@@ -52,6 +53,7 @@ services:
       - .:/labhouse
       - temp_volume:/app/media/
       - ./labhouse/local-mo-di-diffusion:/app/local-mo-di-diffusion
+      - ./labhouse/local-instruct-pix2pix:/app/local-instruct-pix2pix
     depends_on:
       - web
       - redis
