@@ -18,7 +18,7 @@ In `/labhouse` folder:
 This second method is the best one for test purposes
 
 ## Deliverables
-- Download the offline model with `python download_model.py`
+- Download the offline model with `python download_model.py` (modify the flag with_float if you uses gpu config to enable floats)
 - For checking the ML, go to the `infra` folder.
 - For checking the results: `http://localhost` or `http://0.0.0.0:8000`
 
