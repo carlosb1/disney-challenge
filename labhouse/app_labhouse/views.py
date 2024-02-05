@@ -6,7 +6,7 @@ from rest_framework import viewsets
 from .forms import ImageForm
 from .models import GeneratedImage
 from .serializers import GeneratedImageSerializer
-from .tasks import process_image, process_image_with_local_model
+from .tasks import process_image, process_image_with_local_model, process_image_with_local_model_cage
 
 
 class GeneratedImagesViewSet(viewsets.ModelViewSet):
@@ -27,8 +27,10 @@ def index(request):
             logger.info(f'saved instance as {instance} with type {list(request.POST)}')
             if type_model == "stability-ai":
                 process_image.delay(generated_image.id)
-            else:
+            elif type_model == "offline-model":
                 process_image_with_local_model.delay(generated_image.id)
+            else:
+                process_image_with_local_model_cage.delay(generated_image.id)
 
     else:
         form = ImageForm()

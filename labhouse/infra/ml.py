@@ -17,6 +17,7 @@ from PIL import Image
 import torch
 from torchvision.transforms import functional as TF
 from diffusers import StableDiffusionImg2ImgPipeline
+from diffusers import StableDiffusionInstructPix2PixPipeline, EulerAncestralDiscreteScheduler
 
 logger = logging.getLogger(__name__)
 
@@ -116,3 +117,24 @@ class LocalStableDifussionPixar(AdapterML):
             image.save(image_job.generated_image)
             image_job.status = 'C'
             return image_job
+
+class Pix2PixCage(AdapterML):
+    def __init__(self, device='cpu', steps=50):
+        model_id = "local-instruct-pix2pix"
+        self._prompt = "modify the faces to Nicolas Cage"
+        self._device = device
+        self._steps = steps
+        if self._device == 'cpu':
+            pipe = StableDiffusionInstructPix2PixPipeline.from_pretrained(model_id, safety_checker=None)
+        else:
+            pipe = StableDiffusionInstructPix2PixPipeline.from_pretrained(model_id, torch_dtype=torch.float16, safety_checker=None)
+        self._pipe = pipe.to(self._device)
+    def run(self, image_job: ImageJob):
+        image = Image.open(image_job.original_image).convert("RGB")
+        self._pipe.scheduler = EulerAncestralDiscreteScheduler.from_config(self._pipe.scheduler.config)
+        image = self._pipe(self._prompt, image=image, num_inference_steps=self._steps, image_guidance_scale=1).images[0]
+        image_job.generated_image = image_job.original_image.with_name(image_job.original_image.stem + '_generated' + image_job.original_image.suffix)
+        image.save(image_job.generated_image)
+        image_job.status = 'C'
+        return image_job
+

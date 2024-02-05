@@ -10,15 +10,24 @@ python -m venv venv && source venv/bin/activate
 pip install -r labhouse/requeriments.txt
 ```
 
+Run database migrations:
+
+```
+python manage.py makemigrations
+python manage.py migrate --settings=labhouse.settings
+ ```
+
+
 In `/labhouse` folder:
  - `celery -A labhouse worker -l INFO`
  - `docker run -d -p 6379:6379 redis`
  - webservice via : `python manager.py server`
 
+
 This second method is the best one for test purposes
 
 ## Deliverables
-- Download the offline model with `python download_model.py`
+- Download the offline model with `python download_model.py` (modify the flag with_float if you uses gpu config to enable floats)
 - For checking the ML, go to the `infra` folder.
 - For checking the results: `http://localhost` or `http://0.0.0.0:8000`
 
@@ -55,3 +64,4 @@ case, it was not done, it seemed out of the problem scope... All these things wo
 - Both models are using Stable Diffusion XL
 - The API is from `stability.AI` that it consumes credits (I charged 10 euros)... Please take care about this. I harcoded the value in the `settings` file
 for easier the testing. Also it can be passed as another with the compose file.
+- In the last moment, with a lack of ideas... I added a pix2pix network to add nicolas cage faces in the photos

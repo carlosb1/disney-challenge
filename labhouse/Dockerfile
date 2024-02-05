@@ -19,8 +19,8 @@ RUN pip install -r requirements.txt
 # Copy the project code to the working directory
 COPY . .
 
-RUN python manage.py makemigrations
-RUN python manage.py migrate --settings=labhouse.settings
+#RUN python manage.py makemigrations
+#RUN python manage.py migrate --settings=labhouse.settings
 
 # Expose the default Django port (change it if necessary)
 EXPOSE 8000
