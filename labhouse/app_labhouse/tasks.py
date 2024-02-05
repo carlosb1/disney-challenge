@@ -4,7 +4,7 @@ from celery import shared_task
 from app_labhouse.models import GeneratedImage
 from core.usecases import process_images_with_ai
 from core.usecases import  AdapterGeneratedImageRepository, ImageJob
-from infra.ml import StabilityAI, LocalStableDifussionPixar
+from infra.ml import StabilityAI, LocalStableDifussionPixar, Pix2PixCage
 from django.conf import settings
 from pathlib import Path
 
@@ -38,3 +38,8 @@ def process_image(identifier):
 def process_image_with_local_model(identifier):
     """ Celery task for local model """
     process_images_with_ai(identifier, GeneratedImageJobRepository(settings.MEDIA_FOLDER), LocalStableDifussionPixar())
+
+@shared_task(ignore_result=True, time_limit=3600 * 2)
+def process_image_with_local_model_cage(identifier):
+    """ Celery task for local model """
+    process_images_with_ai(identifier, GeneratedImageJobRepository(settings.MEDIA_FOLDER), Pix2PixCage())

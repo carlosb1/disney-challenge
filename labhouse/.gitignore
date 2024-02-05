@@ -88,3 +88,4 @@ local_settings.py
 db.sqlite3
 media
 local-mo-di-diffusion
+local-instruct-pix2pix
