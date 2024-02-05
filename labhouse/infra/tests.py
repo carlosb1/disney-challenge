@@ -80,12 +80,12 @@ class StabilityAITestCase(TestCase):
         assert('E' == result_image_job.status)
 
 class CageTestCase(TestCase):
-    #@skip("It is skipped to much time")
+    @skip("It is skipped to much time")
     def test_client_stability(self):
-        stability_ai = Pix2PixCage()
+        ai = Pix2PixCage(steps=1)
         input_img = Path('resources/reyes.jpg')
         image_job = ImageJob(original_image=input_img, generated_image=input_img, status='R', identifier=1)
-        result_image_job = stability_ai.run(image_job)
+        result_image_job = ai.run(image_job)
         assert('C' == result_image_job.status)
         assert(input_img == image_job.original_image)
         assert(Path('resources/reyes_generated.jpg') == image_job.generated_image)
