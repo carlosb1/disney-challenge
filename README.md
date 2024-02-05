@@ -10,10 +10,19 @@ python -m venv venv && source venv/bin/activate
 pip install -r labhouse/requeriments.txt
 ```
 
+Run database migrations:
+
+```
+python manage.py makemigrations
+python manage.py migrate --settings=labhouse.settings
+ ```
+
+
 In `/labhouse` folder:
  - `celery -A labhouse worker -l INFO`
  - `docker run -d -p 6379:6379 redis`
  - webservice via : `python manager.py server`
+
 
 This second method is the best one for test purposes
 

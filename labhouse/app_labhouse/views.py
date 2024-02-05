@@ -6,7 +6,7 @@ from rest_framework import viewsets
 from .forms import ImageForm
 from .models import GeneratedImage
 from .serializers import GeneratedImageSerializer
-from .tasks import process_image, process_image_with_local_model
+from .tasks import process_image, process_image_with_local_model, process_image_with_local_model_cage
 
 
 class GeneratedImagesViewSet(viewsets.ModelViewSet):

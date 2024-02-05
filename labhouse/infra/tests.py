@@ -6,7 +6,7 @@ from django.conf import settings
 from pathlib import Path
 from PIL import Image
 from core.usecases import ImageJob
-from infra.ml import LocalDiffusionConfig, LocalStableDifussionPixar, StabilityAI
+from infra.ml import LocalDiffusionConfig, LocalStableDifussionPixar, Pix2PixCage, StabilityAI
 
 class LocalStableDiffusionTestCase(TestCase):
     @skip("Very long test")
@@ -79,6 +79,16 @@ class StabilityAITestCase(TestCase):
         result_image_job = stability_ai.run(image_job)
         assert('E' == result_image_job.status)
 
+class CageTestCase(TestCase):
+    #@skip("It is skipped to much time")
+    def test_client_stability(self):
+        stability_ai = Pix2PixCage()
+        input_img = Path('resources/reyes.jpg')
+        image_job = ImageJob(original_image=input_img, generated_image=input_img, status='R', identifier=1)
+        result_image_job = stability_ai.run(image_job)
+        assert('C' == result_image_job.status)
+        assert(input_img == image_job.original_image)
+        assert(Path('resources/reyes_generated.jpg') == image_job.generated_image)
 
 
 
